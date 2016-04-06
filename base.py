@@ -1,8 +1,8 @@
 """Any class that uses text needs to inherit from this class"""
 import os
-from JEngine.Images.frames import grabset
-from JEngine.vectors import Vector2D
-from JEngine.Entity.entity import AbstractEntity
+from frames import grabset
+from vectors import Vector2D
+from entity import AbstractEntity
 
 class TextBase(object):
     def __init__(self, position, area, phrase=''):
