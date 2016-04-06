@@ -1,6 +1,6 @@
 """Pass in a string of text and match the characters to the necessary images"""
-from JEngine.Text.base import TextBase
-from JEngine.vectors import Vector2D
+from base import TextBase
+from vectors import Vector2D
 import pygame
 
 class JDialog(TextBase):
