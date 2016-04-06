@@ -23,7 +23,7 @@ class SpriteHandler(object):
             return pygame.transform.scale(frame, (clip[2]*scale, clip[3]*scale))
         return frame
     
-    def grabSet(filename, dim, startpos=(0,0), num=(1,1)):
+    def grabSet(self, clip, scale=1, rows=1, cols=1):
         '''Grab a set of images from FILENAME
         DIM is the dimensions of images to grab in a tuple
         STARTPOS is the (x,y) coordinate from top left of sheet
