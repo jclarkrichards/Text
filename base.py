@@ -1,13 +1,13 @@
 """Any class that uses text needs to inherit from this class"""
 import os
-from JEngine.Images.frames import grabset
-from JEngine.vectors import Vector2D
-from JEngine.Entity.entity import AbstractEntity
+from image_set import grabset
+from vectors import Vector2D
+from entity import Entity
 
 class TextBase(object):
     def __init__(self, position, area, phrase=''):
-        self.basedir = os.environ['HOME']+'/Documents/MyGames/Text'
-        self.sheet = 'deluxe8bit.png' #'textsheet.png'
+        self.basedir = '' #os.environ['HOME']+'/Documents/MyGames/Text'
+        self.sheet = '' #'deluxe8bit.png'
         self.linespace = 2
         self.wordspace = 8
         self.upperframes = []
