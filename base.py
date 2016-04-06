@@ -1,6 +1,6 @@
 """Any class that uses text needs to inherit from this class"""
 import os
-from frames import grabset
+from image_set import grabset
 from vectors import Vector2D
 from entity import Entity
 
