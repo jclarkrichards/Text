@@ -2,12 +2,12 @@
 import os
 from frames import grabset
 from vectors import Vector2D
-from entity import AbstractEntity
+from entity import Entity
 
 class TextBase(object):
     def __init__(self, position, area, phrase=''):
-        self.basedir = os.environ['HOME']+'/Documents/MyGames/Text'
-        self.sheet = 'deluxe8bit.png' #'textsheet.png'
+        self.basedir = '' #os.environ['HOME']+'/Documents/MyGames/Text'
+        self.sheet = '' #'deluxe8bit.png'
         self.linespace = 2
         self.wordspace = 8
         self.upperframes = []
