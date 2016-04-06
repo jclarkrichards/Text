@@ -1,8 +1,8 @@
 import pygame
  
 def grabset(filename, dim, startpos=(0,0), num=(1,1)):
-    '''Grab a set of tiles from the images in FILENAME
-    DIM is the dimensions of tiles to grab in a tuple
+    '''Grab a set of images from FILENAME
+    DIM is the dimensions of images to grab in a tuple
     STARTPOS is the (x,y) coordinate from top left of sheet
     NUM is how many rows and columns the images to use span'''
     sheet = pygame.image.load(filename).convert_alpha()
