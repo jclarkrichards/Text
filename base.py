@@ -7,7 +7,6 @@ import numpy as np
 
 class TextBase(object):
     def __init__(self, sheet, txtfile, charsize):
-        #self.basedir = '' #os.environ['HOME']+'/Documents/MyGames/Text'
         self.sheet = sheet #'deluxe8bit.png'
         self.txtfile = txtfile
         self.charsize = charsize
