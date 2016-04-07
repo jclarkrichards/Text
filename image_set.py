@@ -2,10 +2,10 @@
 grabSingle(clip, scale)
     clip is in (x, y, width, height) format
 grabSet(start, scale, rows, cols)
-    Assumes all frames are the same width and height
+    Assumes all frames are the same width and height and arranged in rows
     start is the starting frame in (x, y, width, height) format
 grabAll(w, h, rowNums, scale)
-    Assumes all frames are the same width and height
+    Assumes all frames are the same width and height and arranged in rows
     rowNums is a list of how many frames to grab in each row
 """
 import pygame
