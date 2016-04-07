@@ -2,7 +2,7 @@
 import os
 from image_set import SpriteHandler
 from vectors import Vector2D
-from entity import Entity
+from entity import Character
 import numpy as np
 
 class TextBase(object):
@@ -57,7 +57,7 @@ class TextBase(object):
         if len(self.textChars) != len(self.imageChars):
             return "textChars and imageChars do not match!"
         for i, char in enumerate(self.textChars):
-            self.textDict[char] = Entity(self.imageChar[i])
+            self.textDict[char] = Character(self.imageChar[i])
             
             
             
