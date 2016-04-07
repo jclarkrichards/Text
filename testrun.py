@@ -10,7 +10,7 @@ background.fill((0,0,0))
 
 txt = Text(spritesheet, 'text_map.txt', (16,16))
 phrase = PhraseHandler("Hello World!")
-phrase.setPhrase(txt)
+phrase.setPhrase(txt.textDict)
 phrase.format(position=(100,100))
 
 while True:
