@@ -57,7 +57,7 @@ class TextBase(object):
         if len(self.textChars) != len(self.imageChars):
             return "textChars and imageChars do not match!"
         for i, char in enumerate(self.textChars):
-            self.textDict[char] = self.imageChar[i]
+            self.textDict[char] = Entity(self.imageChar[i])
             
             
             
