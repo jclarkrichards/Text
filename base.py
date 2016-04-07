@@ -3,6 +3,7 @@ import os
 from image_set import grabset
 from vectors import Vector2D
 from entity import Entity
+import numpy as np
 
 class TextBase(object):
     def __init__(self, position, area, phrase=''):
@@ -27,6 +28,10 @@ class TextBase(object):
         self.textoffset = 0
         self.name = 'text'
 
+    def findABetterName(self, filename):
+        with open(filename) as f:
+            data = np.array(f.read().split(), dtype=str)
+            
     def useUpperCase(self):
         '''Use only uppercase letters'''
         self.phrase = self.phrase.upper()
