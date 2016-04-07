@@ -9,4 +9,6 @@ background = pygame.surface.Surface((500,500)).convert()
 background.fill((0,0,0))
 
 while True:
-    pass
+    for event in pygame.event.get():
+        if event.type == QUIT:
+            exit()
