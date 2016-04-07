@@ -5,7 +5,7 @@ from vectors import Vector2D
 from entity import Character
 import numpy as np
 
-class TextBase(object):
+class Text(object):
     def __init__(self, sheet, txtfile, charsize):
         self.sheet = sheet #'deluxe8bit.png'
         self.txtfile = txtfile
