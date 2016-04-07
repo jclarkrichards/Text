@@ -6,7 +6,11 @@ class PhraseHandler(object):
         self.phrase = phrase
         self.phraseList = []
         
-    def setPhrase(self, lookup):
+    def updatePhrase(self, phrase):
+        '''Set a new phrase to use'''
+        pass
+    
+    def mapPhrase(self, lookup):
         '''Get all of the character images to construct the phrase'''
         for letter in self.phrase:
             try:
