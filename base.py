@@ -12,10 +12,11 @@ class Text(object):
         self.charsize = charsize
         self.imageChars = []
         self.textChars = []
+        self.textdict = {}
         self.loadSheet()
         #self.linespace = 2
         #self.wordspace = 8
-        self.textdict = {}
+       
         #self.position = Vector2D(position)
         #self.area = Vector2D(area)
         #self.charlist = []
