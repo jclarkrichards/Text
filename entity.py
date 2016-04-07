@@ -10,6 +10,10 @@ class Character(object):
     def update(self, dt):
         pass
     
+    def setPosition(self, position):
+        '''position can be a tuple or a list in (x,y) format'''
+        self.position = Vector2D(tuple(position))
+    
     def render(self, screen):
         screen.blit(self.image, self.position.toTuple())
     
