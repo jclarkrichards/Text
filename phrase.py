@@ -15,8 +15,10 @@ class PhraseHandler(object):
             
     def format(self, position=(0,0)):
         '''Format the phrase'''
-        pass
+        for i, letter in enumerate(self.phraseList):
+            letter.setPosition((position[0]+letter.size[0]*i, position[1]))
     
     def print(self, screen):
         '''Print the phrase onto the screen'''
-        pass
+        for letter in self.phraseList:
+            letter.render(screen)
