@@ -27,10 +27,13 @@ class TextBase(object):
         self.spaces = []
         self.textoffset = 0
         self.name = 'text'
+        self.textMap = []
 
-    def findABetterName(self, filename):
-        with open(filename) as f:
-            data = np.array(f.read().split(), dtype=str)
+    def setTextMap(self, txtfile):
+        '''Open the txt file that maps the text to the image sheet'''
+        with open(txtfile) as f:
+            self.textMap = np.array(f.read().split(), dtype=str)
+        self.textMap = list(self.textMap)
             
     def useUpperCase(self):
         '''Use only uppercase letters'''
