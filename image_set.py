@@ -1,4 +1,13 @@
-
+"""
+grabSingle(clip, scale)
+    clip is in (x, y, width, height) format
+grabSet(start, scale, rows, cols)
+    Assumes all frames are the same width and height
+    start is the starting frame in (x, y, width, height) format
+grabAll(w, h, rowNums, scale)
+    Assumes all frames are the same width and height
+    rowNums is a list of how many frames to grab in each row
+"""
 import pygame
  
 class SpriteHandler(object):
@@ -23,21 +32,22 @@ class SpriteHandler(object):
             return pygame.transform.scale(frame, (clip[2]*scale, clip[3]*scale))
         return frame
     
-    def grabSet(self, clip, scale=1, rows=1, cols=1):
-        '''Grab a set of images from FILENAME
-        DIM is the dimensions of images to grab in a tuple
-        STARTPOS is the (x,y) coordinate from top left of sheet
-        NUM is how many rows and columns the images to use span'''
-        #sheet = pygame.image.load(filename).convert_alpha()
-        sheetx, sheety = startpos
-        w, h = dim
-        sheetx *= w
-        sheety *= h
-        row, column = num
+    def grabSet(self, start, scale=1, rows=1, cols=1):
+        '''Grab a set of images from FILENAME'''
+        x, y, w, h = start
         frameset = []
-        for i in range(row):
-            for j in range(column):
-                sheet.set_clip(pygame.Rect(sheetx+w*j, sheety+h*i, w, h))
-                frameset.append(sheet.subsurface(sheet.get_clip()))
- 
+        for row in range(rows):
+            for col in range(cols):
+                clip = (x+w*col, y+h*row, w, h)
+                frameset.append(self.grabSingle(clip, scale=scale))
+        return frameset
+        
+    def grabAll(self, w, h, rowNums, scale=1):
+        '''Grab all of the frames from the spritesheet.'''
+        rows = len(rowNums)
+        frameset = []
+        for row in range(rows):
+            for col in range(rowNums[row]):
+                clip = (w*col, h*row, w, h)
+                frameset.append(self.grabSingle(clip, scale=scale))
         return frameset
