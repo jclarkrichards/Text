@@ -10,8 +10,8 @@ background.fill((0,0,0))
 
 txt = Text(spritesheet, 'text_map.txt', (16,16))
 phrase = PhraseHandler("Hello World!")
-phrase.setPhrase(txt.textDict)
-phrase.format(position=(100,100))
+phrase.mapPhrase(txt.textDict)
+phrase.setPosition((100,100))
 
 while True:
     for event in pygame.event.get():
