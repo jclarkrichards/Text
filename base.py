@@ -60,7 +60,7 @@ class Text(object):
             self.textDict[char] = Character(self.imageChar[i])
             
             
-            
+    #All of the methods below may be in the Phrase class        
     def useUpperCase(self):
         '''Use only uppercase letters'''
         self.phrase = self.phrase.upper()
@@ -74,12 +74,6 @@ class Text(object):
         self.phrase = str(newphrase)
         self.parsePhrase()
         self.interpret()
-    
-    def replaceSheet(self, newsheet, charsize):
-        '''Replace the default text sheet'''
-        self.sheet = newsheet
-        self.loadSheet(charsize)
-        self.makeDict()
 
     def interpret(self):
         '''Interpret a string into their corresponding character images.
