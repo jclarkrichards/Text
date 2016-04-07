@@ -9,8 +9,8 @@ background = pygame.surface.Surface((500,500)).convert()
 background.fill((0,0,0))
 
 txt = Text(spritesheet, 'text_map.txt', (16,16))
-phrase = PhraseHandler()
-phrase.setPhrase("Hello World!")
+phrase = PhraseHandler("Hello World!")
+phrase.setPhrase(txt)
 phrase.format(position=(100,100))
 
 while True:
