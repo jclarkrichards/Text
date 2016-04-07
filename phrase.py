@@ -1,4 +1,5 @@
 from base import Text
+from vectors import Vector2D
 
 class PhraseHandler(object):
     def __init__(self, phrase):
@@ -12,7 +13,7 @@ class PhraseHandler(object):
             except KeyError:
                 pass
             
-    def format(self):
+    def format(self, position=(0,0)):
         '''Format the phrase'''
         pass
     
