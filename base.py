@@ -1,37 +1,67 @@
 """Any class that uses text needs to inherit from this class"""
 import os
-from image_set import grabset
+from image_set import SpriteHandler
 from vectors import Vector2D
-from entity import Entity
+from entity import Character
 import numpy as np
 
-class TextBase(object):
-    def __init__(self, position, area, phrase=''):
-        self.basedir = '' #os.environ['HOME']+'/Documents/MyGames/Text'
-        self.sheet = '' #'deluxe8bit.png'
-        self.linespace = 2
-        self.wordspace = 8
-        self.upperframes = []
-        self.lowerframes = []
-        self.numberframes = []
-        self.punctuationframes = []
-        self.textdict = {}
-        self.position = Vector2D(position)
-        self.area = Vector2D(area)
-        self.charsize = (8,8)
-        self.charlist = []
-        self.phraselist = []
-        self.loadSheet(self.charsize)
-        self.makeDict()
-        self.phrase = phrase
-        self.spaces = []
-        self.textoffset = 0
-        self.name = 'text'
-
-    def findABetterName(self, filename):
-        with open(filename) as f:
-            data = np.array(f.read().split(), dtype=str)
+class Text(object):
+    def __init__(self, sheet, txtfile, charsize):
+        self.sheet = sheet #'deluxe8bit.png'
+        self.txtfile = txtfile
+        self.charsize = charsize
+        self.imageChars = []
+        self.textChars = []
+        self.textDict = {}
+        self.loadSheet()
+        #self.linespace = 2
+        #self.wordspace = 8
+       
+        #self.position = Vector2D(position)
+        #self.area = Vector2D(area)
+        #self.charlist = []
+        #self.phraselist = []
+        #self.loadSheet(self.charsize)
+        #self.makeDict()
+        #self.phrase = phrase
+        #self.spaces = []
+        #self.textoffset = 0
+        #self.name = 'text'
+        
+    """
+    def setTextMap(self):
+        '''Open the txt file that maps the text to the image sheet'''
+        with open(self.txtfile) as f:
+            self.textChars = np.array(f.read().split(), dtype=str)
+        self.textChars = list(self.textChars)
+    """    
+    def getRowNums(self):
+        rowNums = []
+        self.textChars = []
+        with open(self.txtfile) as f:
+            thisline = list(np.array(f.readline().split(), dtype=str))
+            self.textChars += thisline
+            rowNums.append(len(thisline))
+        return rowNums
+        
+    def loadSheet(self):
+        '''Load the character sheet'''
+        rowNums = self.getRowNums()
+        sheet = SpriteHandler(self.sheet)
+        w, h = self.charsize
+        self.imageChars = sheet.grabAll(w, h, rowNums)
+        self.mapCharacters()
+        
+    def mapCharacters(self):
+        '''Map the image characters to the text characters'''
+        self.textDict = {}
+        if len(self.textChars) != len(self.imageChars):
+            return "textChars and imageChars do not match!"
+        for i, char in enumerate(self.textChars):
+            self.textDict[char] = Character(self.imageChar[i])
             
+            
+    #All of the methods below may be in the Phrase class        
     def useUpperCase(self):
         '''Use only uppercase letters'''
         self.phrase = self.phrase.upper()
@@ -45,47 +75,6 @@ class TextBase(object):
         self.phrase = str(newphrase)
         self.parsePhrase()
         self.interpret()
-
-    def loadSheet(self, charsize):
-        '''Load a text sprite sheet and specify the width and height
-        of characters on the sheet using CHARSIZE.
-        UPPERFRAMES and LOWERFRAMES are always from A to Z (26 characters).
-        NUMBERFRAMES always go from 0 to 9.
-        PUNCTUATIONFRAMES needs more attention'''
-        self.charsize = charsize
-        filename = self.basedir+'/'+self.sheet
-        self.upperframes = grabset(filename, charsize, num=(1,26))
-        self.lowerframes = grabset(filename, charsize, startpos=(0,1),
-                                   num=(1,26))
-        self.numberframes = grabset(filename, charsize, startpos=(0,2),
-                                    num=(1,10))
-        self.punctuationframes = grabset(filename, charsize, startpos=(0,3),
-                                         num=(1,21))
-    
-    def replaceSheet(self, newsheet, charsize):
-        '''Replace the default text sheet'''
-        self.sheet = newsheet
-        self.loadSheet(charsize)
-        self.makeDict()
-
-    def makeDict(self):
-        '''Make a single dictionary of all the charcters frames'''
-        self.textdict = {}
-        alphaupper = ['A','B','C','D','E','F','G','H','I','J','K','L','M',
-                      'N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-        alphalower = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
-                      'n','o','p','q','r','s','t','u','v','w','x','y','z']
-        numbers = ['0','1','2','3','4','5','6','7','8','9']
-        punct = ['.',',','!','?','"',':',';','-','+','\'','%','@','#','$',
-                 '&','*','(',')','/','\\','=']
-        for i in range(len(alphaupper)):
-            self.textdict[alphaupper[i]] = self.upperframes[i]
-        for i in range(len(alphalower)):
-            self.textdict[alphalower[i]] = self.lowerframes[i]
-        for i in range(len(numbers)):
-            self.textdict[numbers[i]] = self.numberframes[i]
-        for i in range(len(punct)):
-            self.textdict[punct[i]] = self.punctuationframes[i]
 
     def interpret(self):
         '''Interpret a string into their corresponding character images.
