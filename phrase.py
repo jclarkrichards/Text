@@ -8,7 +8,7 @@ class PhraseHandler(object):
     def setPhrase(self, lookup):
         for letter in self.phrase:
             try:
-                self.phraseList.append(lookup.textDict[letter])
+                self.phraseList.append(lookup[letter])
             except KeyError:
                 pass
             
