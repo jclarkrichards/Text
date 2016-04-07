@@ -16,6 +16,7 @@ class SpriteHandler(object):
         self.sheet = None
         self.frame = None
         self.frameset = []
+        self.load()
         
     def load(self):
         '''Load a sprite sheet for use'''
