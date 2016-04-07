@@ -18,6 +18,7 @@ while True:
         if event.type == QUIT:
             exit()
             
+    screen.blit(background, (0,0))
     phrase.print(screen)
     
     pygame.display.update()
