@@ -12,7 +12,7 @@ class Text(object):
         self.charsize = charsize
         self.imageChars = []
         self.textChars = []
-        self.textdict = {}
+        self.textDict = {}
         self.loadSheet()
         #self.linespace = 2
         #self.wordspace = 8
