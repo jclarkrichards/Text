@@ -2,7 +2,7 @@
 import os
 from image_set import SpriteHandler
 from vectors import Vector2D
-from entity import Character
+#from entity import Character
 import numpy as np
 
 class Text(object):
@@ -39,9 +39,10 @@ class Text(object):
         rowNums = []
         self.textChars = []
         with open(self.txtfile) as f:
-            thisline = list(np.array(f.readline().split(), dtype=str))
-            self.textChars += thisline
-            rowNums.append(len(thisline))
+            for line in f:
+                thisline = list(np.array(line.split(), dtype=str))
+                self.textChars += thisline
+                rowNums.append(len(thisline))
         return rowNums
         
     def loadSheet(self):
@@ -58,7 +59,8 @@ class Text(object):
         if len(self.textChars) != len(self.imageChars):
             return "textChars and imageChars do not match!"
         for i, char in enumerate(self.textChars):
-            self.textDict[char] = Character(self.imageChar[i])
+            #self.textDict[char] = Character(self.imageChars[i])
+            self.textDict[char] = self.imageChars[i]
             
             
     #All of the methods below may be in the Phrase class        
