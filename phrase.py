@@ -19,7 +19,7 @@ class PhraseHandler(object):
             try:
                 self.phraseList.append(Character(lookup[letter]))
             except KeyError:
-                #self.phraseList.append(Character(None))
+                pass
             
     def setPosition(self, position):
         '''Set the position relative to the first letter'''
@@ -38,3 +38,81 @@ class PhraseHandler(object):
         '''Print the phrase onto the screen'''
         for letter in self.phraseList:
             letter.render(screen)
+            
+            
+    """        
+     #All of the methods below may be in the Phrase class        
+    def useUpperCase(self):
+        '''Use only uppercase letters'''
+        self.phrase = self.phrase.upper()
+
+    def setPhrase(self, phrase):
+        '''Set the phrase to print to screen'''
+        self.phrase = phrase
+
+    def updatePhrase(self, newphrase):
+        '''Update the phrase with a new phrase'''
+        self.phrase = str(newphrase)
+        self.parsePhrase()
+        self.interpret()
+
+    def interpret(self):
+        '''Interpret a string into their corresponding character images.
+        Determine the x,y position of each character.'''
+        self.charlist = []
+        maxrows = int(self.area.y / (self.charsize[1]+self.linespace))
+        if maxrows < 1:
+            maxrows = 1
+        w, h = self.charsize
+        row = 0
+        while row < maxrows:
+            try:
+                thisphrase = self.phraselist[0]
+            except IndexError:
+                row = maxrows
+            else:
+                for j in range(len(thisphrase)):
+                    pos = (j*w+self.position.x+self.textoffset,
+                           row*(self.linespace+h)+self.position.y)
+                    try:
+                        image = self.textdict[thisphrase[j]]
+                    except:
+                        self.spaces.append((pos[0]-self.position.x) / w)
+                    else:
+                        self.charlist.append(AbstractEntity((w,h),image=image,
+                                                            startpos=pos))
+                self.phraselist.remove(thisphrase)
+            row += 1
+
+    def parsePhrase(self):
+        '''Split the phrase into multiple lines if it exceeds MAXWIDTH.'''
+        dx,dy = self.charsize
+        width, height = self.area.toTuple()
+        wordlist = self.phrase.split(' ')
+        while len(wordlist) > 0:
+            n = 0
+            templist = []
+            nextline = False
+            while not nextline and len(wordlist) > 0:
+                word = wordlist[0]
+                n += len(word)*dx
+                if n > width:
+                    nextline = True
+                else:
+                    templist.append(word)
+                    wordlist.remove(word)
+                    n += self.wordspace
+            self.phraselist.append(" ".join(templist))
+
+    def fromTextFile(self, filename, thisline):
+        '''Get a phrase from a text file.  Assume that each phrase
+        is on a different line in the file'''
+        indx = 0
+        with open(filename, "r") as f:
+            for line in f:
+                if indx == thisline:
+                    self.phrase = line
+                    self.phrase.strip('\n')
+                    break
+                indx += 1
+    """
