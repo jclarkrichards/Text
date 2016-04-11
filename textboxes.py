@@ -2,13 +2,14 @@ from vectors import Vector2D
 from phrase import PhraseHandler
 
 class TextBox(object):
-    def __init__(self, lines, charsPerLine):
-        self.charPerLine = charsPerLine
+    def __init__(self, lines, charPerLine):
+        self.charPerLine = charPerLine
         self.lines = lines
         self.position = Vector2D()
         self.width = 0
         self.height = 0
         self.phrase = None
+        #self.phraseStr = ''
         self.charsize = (0, 0)
         
     def update(self, dt):
@@ -28,11 +29,12 @@ class TextBox(object):
         
     def setPhrase(self, phrase, table):
         '''The input phrase is a string. table is the dictionary'''
+        #self.phraseStr = phrase
         self.phrase = PhraseHandler(phrase)
         self.phrase.mapPhrase(table) #self.phrase.phraseList
         self.charsize = self.phrase[0].size()
         self.setDimensions()
-        self.setCharPositions()
+        self.setCharPositions(phrase)
         
     def scaleCharacters(self, scale):
         '''Set dimensions of characters.  Changes dimensions of box'''
@@ -40,8 +42,12 @@ class TextBox(object):
         self.charsize = self.phrase[0].size()
         self.setDimensions()
         
-    def setCharPositions(self):
-        pass
+    def setCharPositions(self, phrase):
+        words = phrase.split()
+        lineChar = 0
+        index = 0
+        for word in words:
+            pass
         
     def render(self, screen):
         pass
