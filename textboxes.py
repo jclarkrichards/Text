@@ -20,7 +20,11 @@ class TextBox(object):
         self.height = self.lines*self.charsize[1]
     
     def setPosition(self, position):
+        dp = self.position - Vector2D(position)
         self.position = Vector2D(position)
+        if self.phrase:
+            for letter in self.phrase.phraseList:
+                letter.position += dp
         
     def setPhrase(self, phrase, table):
         '''The input phrase is a string. table is the dictionary'''
@@ -28,12 +32,16 @@ class TextBox(object):
         self.phrase.mapPhrase(table) #self.phrase.phraseList
         self.charsize = self.phrase[0].size()
         self.setDimensions()
+        self.setCharPositions()
         
     def scaleCharacters(self, scale):
         '''Set dimensions of characters.  Changes dimensions of box'''
         self.phrase.setScale(scale)
         self.charsize = self.phrase[0].size()
         self.setDimensions()
+        
+    def setCharPositions(self):
+        pass
         
     def render(self, screen):
         pass
