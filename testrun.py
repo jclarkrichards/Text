@@ -13,7 +13,7 @@ txt = Text('deluxefont8px.png', 'text_map.txt', (8,8))
 
 box = TextBox(3, 20)
 box.setPosition((10,200))
-box.setPhrase("Jonathan Richards")
+box.setPhrase("Jonathan Richards", txt)
 
 #phrase = PhraseHandler("Jonathan Richards")
 #phrase.mapPhrase(txt.textDict)
