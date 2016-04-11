@@ -1,4 +1,5 @@
 from vectors import Vector2D
+from phrase import PhraseHandler
 
 class TextBox(object):
     def __init__(self, lines, charsPerLine):
@@ -12,5 +13,6 @@ class TextBox(object):
         
     def setPhrase(self, phrase, table):
         '''The phrase is a string. table maps the characters'''
-        self.phrase = phrase
+        self.phrase = PhraseHandler(phrase)
+        self.phrase.readoutPhrase()
         
