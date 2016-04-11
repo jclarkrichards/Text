@@ -9,7 +9,7 @@ class TextBox(object):
         self.width = 0
         self.height = 0
         self.phrase = ''
-        self.charSize = (0, 0)
+        self.charsize = (0, 0)
         
     def update(self, dt):
         pass
@@ -25,6 +25,7 @@ class TextBox(object):
         '''The phrase is a string. table maps the characters'''
         self.phrase = PhraseHandler(phrase)
         self.phrase.mapPhrase(table)
+        self.charsize = self.phrase[0].get_size()
         
     def scaleCharacters(self, scale):
         '''Set dimensions of characters.  Changes dimensions of box'''
