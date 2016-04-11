@@ -28,9 +28,10 @@ class PhraseHandler(object):
                 pass
             
     def setPosition(self, position):
-        '''Set the position relative to the first letter'''
+        '''Set the position relative to the first letter on one line'''
         for i, letter in enumerate(self.phraseList):
-            letter.setPosition((position[0]+letter.size[0]*i, position[1]))
+            letter.setPosition(position, i, 0)
+            #letter.setPosition((position[0]+letter.size[0]*i, position[1]))
             
     def setScale(self, scale):
         '''Make the letters bigger or smaller'''
