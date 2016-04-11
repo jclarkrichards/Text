@@ -11,12 +11,12 @@ class Character(object):
     def update(self, dt):
         pass
     
-    def setPosition(self, position):
+    def setPositionManual(self, position):
         '''position can be a tuple or a list in (x,y) format'''
         self.position = Vector2D(tuple(position))
         
-    def setPositionManual(self, position, offsetx, offsety):
-        self.position = position + Vector2D(size[0]*offsetx, size[1]*offsety)
+    def setPosition(self, position, dx, dy):
+        self.position = position + Vector2D(size[0]*dx, size[1]*dy)
 
     def setSize(self):
         self.size = self.image.get_size()
