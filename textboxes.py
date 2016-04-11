@@ -6,9 +6,16 @@ class TextBox(object):
         self.charPerLine = charsPerLine
         self.lines = lines
         self.position = Vector2D()
+        self.width = 0
+        self.height = 0
         self.phrase = ''
+        self.charSize = (0, 0)
         
     def update(self, dt):
+        pass
+    
+    def setDimensions(self):
+        '''dimensions based on characters width and height'''
         pass
     
     def setPosition(self, position):
@@ -20,7 +27,9 @@ class TextBox(object):
         self.phrase.mapPhrase(table)
         
     def scaleCharacters(self, scale):
+        '''Set dimensions of characters.  Changes dimensions of box'''
         self.phrase.setScale(scale)
+        self.setDimensions()
         
     def render(self, screen):
         pass
