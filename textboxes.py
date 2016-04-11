@@ -44,10 +44,23 @@ class TextBox(object):
         
     def setCharPositions(self, phrase):
         words = phrase.split()
-        lineChar = 0
+        line = 0
+        numChars = 0
+        #lineChar = 0
         index = 0
-        for word in words:
-            pass
+        offset = 0 #0 for first word, 1 for rest of words
+        for iword, word in enumerate(words):
+            if numChars+len(word)+offset <= self.charPerLine:
+                numChars += len(word)+offset
+            else:
+                numChars = 0
+                line += 1
+                
+            for i in range(index, len(word)+index+offset):
+                self.phrase.setPosition(i, line)
+                #self.phrase.phraseList.setPositionManual(position)
+            
+            offset = 1
         
     def render(self, screen):
         pass
