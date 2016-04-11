@@ -8,11 +8,20 @@ class TextBox(object):
         self.position = Vector2D()
         self.phrase = ''
         
+    def update(self, dt):
+        pass
+    
     def setPosition(self, position):
         self.position = Vector2D(position)
         
     def setPhrase(self, phrase, table):
         '''The phrase is a string. table maps the characters'''
         self.phrase = PhraseHandler(phrase)
-        self.phrase.readoutPhrase()
+        self.phrase.mapPhrase(table)
+        
+    def scaleCharacters(self, scale):
+        self.phrase.setScale(scale)
+        
+    def render(self, screen):
+        pass
         
