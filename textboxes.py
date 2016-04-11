@@ -20,7 +20,7 @@ class TextBox(object):
         self.height = self.lines*self.charsize[1]
     
     def setPosition(self, position):
-        dp = self.position - Vector2D(position)
+        dp = Vector2D(position) - self.position
         self.position = Vector2D(position)
         if self.phrase:
             for letter in self.phrase.phraseList:
