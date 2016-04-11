@@ -48,7 +48,7 @@ class TextBox(object):
         numChars = 0
         index = 0
         offsetX = 0 #0 for first word, 1 otherwise
-        offsetY = 1 #1 for first word, 0 otherwise
+        offsetY = 0 #1 for first word, 0 otherwise
         for iword, word in enumerate(words):
             if numChars+len(word)+offsetX <= self.charPerLine:
                 numChars += len(word)+offsetX
