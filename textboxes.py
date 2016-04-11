@@ -10,7 +10,7 @@ class TextBox(object):
     def setPosition(self, position):
         self.position = Vector2D(position)
         
-    def setPhrase(self, phrase):
-        '''The phrase is a string'''
+    def setPhrase(self, phrase, table):
+        '''The phrase is a string. table maps the characters'''
         self.phrase = phrase
         
