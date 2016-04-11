@@ -47,16 +47,20 @@ class TextBox(object):
         line = 0
         numChars = 0
         index = 0
-        offset = 0 #0 for first word, 1 for rest of words
+        offsetX = 0 #0 for first word, 1 otherwise
+        offsetY = 1 #1 for first word, 0 otherwise
         for iword, word in enumerate(words):
-            if numChars+len(word)+offset <= self.charPerLine:
-                numChars += len(word)+offset
+            if numChars+len(word)+offsetX <= self.charPerLine:
+                numChars += len(word)+offsetX
             else:
                 numChars = 0
                 line += 1
-            for i in range(index, len(word)+index+offset):
+                offsetY = 1 #1 for first word on line, 0 otherwise
+            for i in range(index+offsetY, len(word)+index+offsetX):
                 self.phrase.phraseList[i].setPositionManual(self.position, i, line)
-            offset = 1
+            offsetX = 1
+            offsetY = 0
+            index = i+1
         
     def render(self, screen):
         pass
