@@ -57,7 +57,7 @@ class TextBox(object):
                 line += 1
                 offsetY = 1 #1 for first word on line, 0 otherwise
             for i in range(index+offsetY, len(word)+index+offsetX):
-                self.phrase.phraseList[i].setPositionManual(self.position, i, line)
+                self.phrase.phraseList[i].setPosition(self.position, i, line)
             offsetX = 1
             offsetY = 0
             index = i+1
