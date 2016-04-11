@@ -2,16 +2,23 @@ import pygame
 from base import Text
 from vectors import Vector2D
 from entity import Character
+from phraseFX import *
+import numpy as np
 
 class PhraseHandler(object):
     def __init__(self, phrase):
         self.phrase = phrase
         self.phraseList = []
+        self.readOut = None
         
+    def update(self, dt):
+        if self.readOut:
+            self.readOut.update(dt, self.phraseList)
+
     def updatePhrase(self, phrase):
         '''Set a new phrase to use'''
         pass
-    
+
     def mapPhrase(self, lookup):
         '''Get all of the character images to construct the phrase'''
         for letter in self.phrase:
@@ -31,7 +38,13 @@ class PhraseHandler(object):
             newSize = (letter.size[0]*scale, letter.size[1]*scale)
             letter.image = pygame.transform.scale(letter.image, newSize)
             letter.setSize()
-    
+
+    def readoutCharacters(self, speed):
+        '''Reads out the characters one at a time'''
+        self.readOut = ReadOut(speed)
+        for letter in self.phraseList:
+            letter.alive = False
+
     def render(self, screen):
         '''Print the phrase onto the screen'''
         for letter in self.phraseList:

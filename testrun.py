@@ -7,20 +7,21 @@ pygame.init()
 screen = pygame.display.set_mode((500,500), 0, 32)
 background = pygame.surface.Surface((500,500)).convert()
 background.fill((0,0,0))
-
-txt = Text('deluxefont16px.png', 'text_map.txt', (16,16))
-phrase = PhraseHandler("My name is Jon.")
+clock = pygame.time.Clock()
+txt = Text('deluxefont8px.png', 'text_map.txt', (8,8))
+phrase = PhraseHandler("Jonathan Richards")
 phrase.mapPhrase(txt.textDict)
-phrase.setScale(1)
-phrase.setPosition((100,200))
-
-print txt.textDict.keys(), len(txt.textDict.keys())
+#phrase.setScale(3)
+phrase.setPosition((10,200))
+phrase.readoutCharacters(15)
 
 while True:
+    dt = clock.tick(30)/1000.0
     for event in pygame.event.get():
         if event.type == QUIT:
             exit()
-            
+
+    phrase.update(dt)
     screen.blit(background, (0,0))
     phrase.render(screen)
     

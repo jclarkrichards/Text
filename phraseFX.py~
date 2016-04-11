@@ -1,0 +1,17 @@
+import numpy as np
+
+class ReadOut(object):
+    def __init__(self):
+        self.timer = 0
+        self.counter = 0
+        self.phraseIndex = 0
+        self.numCharacters = 1
+
+    def update(self, dt, phrase):
+        pass
+
+    def setSpeed(self, speed):
+        '''How fast to read out the characters'''
+        if speed > 0:
+            self.timer = 1.0/speed
+        self.numCharacters = int(np.ceil(.03/self.timer))

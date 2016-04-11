@@ -6,6 +6,7 @@ class Character(object):
         self.image = surfaceObj
         self.position = Vector2D()
         self.size = self.image.get_size()
+        self.alive = True
         
     def update(self, dt):
         pass
@@ -18,5 +19,6 @@ class Character(object):
         self.size = self.image.get_size()
         
     def render(self, screen):
-        screen.blit(self.image, self.position.toTuple())
+        if self.alive:
+            screen.blit(self.image, self.position.toTuple())
     
