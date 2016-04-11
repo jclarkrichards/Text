@@ -46,7 +46,6 @@ class TextBox(object):
         words = phrase.split()
         line = 0
         numChars = 0
-        #lineChar = 0
         index = 0
         offset = 0 #0 for first word, 1 for rest of words
         for iword, word in enumerate(words):
@@ -55,11 +54,8 @@ class TextBox(object):
             else:
                 numChars = 0
                 line += 1
-                
             for i in range(index, len(word)+index+offset):
-                self.phrase.setPosition(i, line)
-                #self.phrase.phraseList.setPositionManual(position)
-            
+                self.phrase.phraseList[i].setPositionManual(self.position, i, line)
             offset = 1
         
     def render(self, screen):
