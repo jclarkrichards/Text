@@ -13,7 +13,7 @@ class TextBox(object):
         self.charsize = (0, 0)
         
     def update(self, dt):
-        pass
+        self.phrase.update(dt)
     
     def setDimensions(self):
         '''dimensions based on characters width and height'''
@@ -27,41 +27,51 @@ class TextBox(object):
             for letter in self.phrase.phraseList:
                 letter.position += dp
         
-    def setPhrase(self, phrase, table):
+    def setPhrase(self, phrase, table, scale):
         '''The input phrase is a string. table is the dictionary'''
         #self.phraseStr = phrase
         self.phrase = PhraseHandler(phrase)
         self.phrase.mapPhrase(table) #self.phrase.phraseList
-        self.charsize = self.phrase[0].size()
+        self.charsize = self.phrase.phraseList[0].size
         self.setDimensions()
+        self.scaleCharacters(scale)
         self.setCharPositions(phrase)
         
     def scaleCharacters(self, scale):
         '''Set dimensions of characters.  Changes dimensions of box'''
         self.phrase.setScale(scale)
-        self.charsize = self.phrase[0].size()
+        self.charsize = self.phrase.phraseList[0].size
         self.setDimensions()
         
     def setCharPositions(self, phrase):
         words = phrase.split()
         line = 0
+        col = 0
         numChars = 0
         index = 0
         offsetX = 0 #0 for first word, 1 otherwise
         offsetY = 0 #1 for first word, 0 otherwise
+        
         for iword, word in enumerate(words):
             if numChars+len(word)+offsetX <= self.charPerLine:
                 numChars += len(word)+offsetX
             else:
-                numChars = 0
+                numChars = len(word)
                 line += 1
-                offsetY = 1 #1 for first word on line, 0 otherwise
+                offsetY = 1
+                col = 0
+
             for i in range(index+offsetY, len(word)+index+offsetX):
-                self.phrase.phraseList[i].setPosition(self.position, i, line)
+                self.phrase.phraseList[i].setPosition(self.position, col, line)
+                col += 1
+                
             offsetX = 1
             offsetY = 0
             index = i+1
+
+    def readoutCharacters(self, speed):
+        self.phrase.readoutCharacters(speed)
         
     def render(self, screen):
-        pass
+        self.phrase.render(screen)
         

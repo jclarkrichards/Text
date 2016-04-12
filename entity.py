@@ -15,8 +15,8 @@ class Character(object):
         '''position can be a tuple or a list in (x,y) format'''
         self.position = Vector2D(tuple(position))
         
-    def setPosition(self, position, dx, dy):
-        self.position = position + Vector2D(size[0]*dx, size[1]*dy)
+    def setPosition(self, position, col, row):
+        self.position = position + Vector2D(self.size[0]*col, self.size[1]*row)
 
     def setSize(self):
         self.size = self.image.get_size()
