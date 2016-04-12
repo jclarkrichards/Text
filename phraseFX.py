@@ -5,7 +5,7 @@ class ReadOut(object):
         self.timer = 0
         self.counter = 0
         self.phraseIndex = 0
-        self.numCharacters = 1
+        self.numCharacters = 1 #num characters to print at once
         self.setSpeed(speed)
 
     def update(self, dt, phrase):
