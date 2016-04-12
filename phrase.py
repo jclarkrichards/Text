@@ -9,6 +9,7 @@ class PhraseHandler(object):
     def __init__(self, phrase):
         self.phrase = phrase
         self.phraseList = []
+        self.phraseArray = []
         self.readOut = None
         
     def update(self, dt):
