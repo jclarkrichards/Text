@@ -15,7 +15,7 @@ class PhraseHandler(object):
     def update(self, dt):
         if self.readOut:
             self.readOut.update(dt, self.phraseList)
-
+        
     def updatePhrase(self, phrase):
         '''Set a new phrase to use'''
         pass
@@ -47,6 +47,24 @@ class PhraseHandler(object):
         for letter in self.phraseList:
             letter.alive = False
 
+    def continueReadout(self):
+        if self.readOut:
+            speed = self.readOut.speed
+            self.readoutCharacters(speed)
+
+    def finishedReadout(self):
+        if self.phraseList[-1].alive:
+            return True
+        return False
+
+    def increaseSpeed(self):
+        if self.readOut:
+            self.readOut.increaseSpeed()
+
+    def resetSpeed(self):
+        if self.readOut:
+            self.readOut.resetSpeed()
+            
     def render(self, screen):
         '''Print the phrase onto the screen'''
         for letter in self.phraseList:

@@ -11,6 +11,7 @@ class TextBox(object):
         self.phrase = None
         #self.phraseStr = ''
         self.charsize = (0, 0)
+        self.iphrase = 0
         
     def update(self, dt):
         self.phrase.update(dt)
@@ -70,14 +71,33 @@ class TextBox(object):
                 self.phrase.phraseList[i].setPosition(self.position, col, line)
                 charlist.append(self.phrase.phraseList[i])
                 col += 1
-                
+            
             offsetX = 1
             offsetY = 0
             index = i+1
-        self.phrase.phraseList = self.phrase.phraseArray[0]
+        self.phrase.phraseArray.append(charlist)
+        self.phrase.phraseList = self.phrase.phraseArray[self.iphrase]
 
+    def nextPhrase(self, supress=True):
+        '''print out more phrases if queued up'''
+        if supress:
+            supress = not self.phrase.finishedReadout()
+            
+        if (self.iphrase+1 < len(self.phrase.phraseArray) and
+            not supress):
+            self.iphrase += 1   
+            self.phrase.phraseList = self.phrase.phraseArray[self.iphrase]
+            self.phrase.continueReadout()
+            
     def readoutCharacters(self, speed):
+        '''Need to just call this once for each phraseset'''
         self.phrase.readoutCharacters(speed)
+
+    def increaseSpeed(self):
+        self.phrase.increaseSpeed()
+
+    def resetSpeed(self):
+        self.phrase.resetSpeed()
         
     def render(self, screen):
         self.phrase.render(screen)
