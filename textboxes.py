@@ -1,3 +1,4 @@
+import pygame
 from vectors import Vector2D
 from phrase import PhraseHandler
 
