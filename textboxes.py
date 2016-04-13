@@ -13,21 +13,26 @@ class TextBox(object):
         #self.phraseStr = ''
         self.charsize = (0, 0)
         self.iphrase = 0
+        self.textSurface = None
         
     def update(self, dt):
         self.phrase.update(dt)
     
+    def createSurface(self):
+        self.textSurface = pygame.surface.Surface((self.width, self.height))
+        self.textSurface.fill((150,0,20))
+        
     def setDimensions(self):
         '''dimensions based on characters width and height'''
         self.width = self.charPerLine*self.charsize[0]
         self.height = self.lines*self.charsize[1]
     
     def setPosition(self, position):
-        dp = Vector2D(position) - self.position
+        #dp = Vector2D(position) - self.position
         self.position = Vector2D(position)
-        if self.phrase:
-            for letter in self.phrase.phraseList:
-                letter.position += dp
+        #if self.phrase:
+        #    for letter in self.phrase.phraseList:
+        #        letter.position += dp
         
     def setPhrase(self, phrase, table, scale):
         '''The input phrase is a string. table is the dictionary'''
@@ -36,6 +41,7 @@ class TextBox(object):
         self.phrase.mapPhrase(table) #self.phrase.phraseList
         self.charsize = self.phrase.phraseList[0].size
         self.setDimensions()
+        self.createSurface()
         self.scaleCharacters(scale)
         self.setCharPositions(phrase)
         
@@ -101,7 +107,8 @@ class TextBox(object):
         self.phrase.resetSpeed()
         
     def render(self, screen):
-        x, y = self.position.toTuple()
-        pygame.draw.rect(screen, (150,0,50), [x, y, self.width, self.height])
-        self.phrase.render(screen)
-        
+        screen.blit(self.textSurface, self.position.toTuple())
+        #x, y = self.position.toTuple()
+        #pygame.draw.rect(screen, (150,0,50), [x, y, self.width, self.height])
+        #self.phrase.render(screen)
+        self.phrase.render(self.textSurface)
