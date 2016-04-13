@@ -102,6 +102,6 @@ class TextBox(object):
         
     def render(self, screen):
         x, y = self.position.toTuple()
-        pygame.rect.draw(screen, (150,0,50), [x, y, self.width, self.height])
+        pygame.draw.rect(screen, (150,0,50), [x, y, self.width, self.height])
         self.phrase.render(screen)
         
