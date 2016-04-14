@@ -10,7 +10,6 @@ class TextBox(object):
         self.width = 0
         self.height = 0
         self.phrase = None
-        #self.phraseStr = ''
         self.charsize = (0, 0)
         self.iphrase = 0
         self.textSurface = None
@@ -20,13 +19,14 @@ class TextBox(object):
     
     def createSurface(self):
         self.textSurface = pygame.surface.Surface((self.width, self.height))
-        self.textSurface.fill((150,0,20))
+        self.textSurface.fill((200,0,20))
         
     def setDimensions(self):
         '''dimensions based on characters width and height'''
         self.width = self.charPerLine*self.charsize[0]
         self.height = self.lines*self.charsize[1]
-    
+        self.createSurface()
+        
     def setPosition(self, position):
         #dp = Vector2D(position) - self.position
         self.position = Vector2D(position)
@@ -41,7 +41,6 @@ class TextBox(object):
         self.phrase.mapPhrase(table) #self.phrase.phraseList
         self.charsize = self.phrase.phraseList[0].size
         self.setDimensions()
-        self.createSurface()
         self.scaleCharacters(scale)
         self.setCharPositions(phrase)
         
@@ -92,6 +91,7 @@ class TextBox(object):
             
         if (self.iphrase+1 < len(self.phrase.phraseArray) and
             not supress):
+            self.textSurface.fill((200,0,20))
             self.iphrase += 1   
             self.phrase.phraseList = self.phrase.phraseArray[self.iphrase]
             self.phrase.continueReadout()

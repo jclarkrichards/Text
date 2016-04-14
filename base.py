@@ -43,7 +43,10 @@ class Text(object):
         
     def addSpaceCharacter(self):
         '''Add a space character to the dictionary'''
-        self.textDict[' '] = pygame.Surface(self.charsize)
+        frame = pygame.Surface(self.charsize).convert()
+        frame.fill((255,0,255))
+        frame.set_colorkey((255,0,255))
+        self.textDict[' '] = frame #pygame.Surface(self.charsize).convert()
         
    
 

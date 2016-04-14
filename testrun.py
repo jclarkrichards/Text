@@ -12,9 +12,8 @@ clock = pygame.time.Clock()
 txt = Text('deluxefont8px.png', 'text_map.txt', (8,8))
 
 box = TextBox(2, 25)
-box.setPosition((50,100))
+box.setPosition((20,400))
 box.setPhrase("Jonathan Richards is my name. I am the most awesomest person in the entire world! I mean seriously now. Is there anybody better than me?", txt.textDict, 1)
-#box.scaleCharacters(2)
 box.readoutCharacters(15)
 
 while True:

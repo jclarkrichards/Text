@@ -27,10 +27,12 @@ class SpriteHandler(object):
         clip=(x,y,width,height) of image to clip'''
         #self.sheet.set_clip(pygame.Rect(clip))
         #return self.sheet.subsurface(self.sheet.get_clip()) #can I scale this?
-        frame = pygame.Surface(clip[2:])
+        frame = pygame.Surface(clip[2:]).convert()
+        frame.set_colorkey((255,0,255))
+        #print frame.get_colorkey()
         frame.blit(self.sheet, (0,0), clip)
-        if scale != 1:
-            return pygame.transform.scale(frame, (clip[2]*scale, clip[3]*scale))
+        #if scale != 1:
+        #    return pygame.transform.scale(frame, (clip[2]*scale, clip[3]*scale))
         return frame
     
     def grabSet(self, start, scale=1, rows=1, cols=1):

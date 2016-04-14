@@ -16,6 +16,7 @@ class Character(object):
         self.position = Vector2D(tuple(position))
         
     def setPosition(self, position, col, row):
+        #print self.size
         self.position = Vector2D(self.size[0]*col, self.size[1]*row)
         #self.position = position + Vector2D(self.size[0]*col, self.size[1]*row)
 
