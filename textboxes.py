@@ -13,6 +13,7 @@ class TextBox(object):
         self.charsize = (0, 0)
         self.iphrase = 0
         self.textSurface = None
+        self.active = True
         
     def update(self, dt):
         self.phrase.update(dt)
@@ -89,12 +90,14 @@ class TextBox(object):
         if supress:
             supress = not self.phrase.finishedReadout()
             
-        if (self.iphrase+1 < len(self.phrase.phraseArray) and
-            not supress):
-            self.textSurface.fill((200,0,20))
-            self.iphrase += 1   
-            self.phrase.phraseList = self.phrase.phraseArray[self.iphrase]
-            self.phrase.continueReadout()
+        if self.iphrase+1 < len(self.phrase.phraseArray):
+            if not supress:
+                self.textSurface.fill((200,0,20))
+                self.iphrase += 1   
+                self.phrase.phraseList = self.phrase.phraseArray[self.iphrase]
+                self.phrase.continueReadout()
+        else:
+            self.active = False
             
     def readoutCharacters(self, speed):
         '''Need to just call this once for each phraseset'''
@@ -107,8 +110,9 @@ class TextBox(object):
         self.phrase.resetSpeed()
         
     def render(self, screen):
-        screen.blit(self.textSurface, self.position.toTuple())
-        #x, y = self.position.toTuple()
-        #pygame.draw.rect(screen, (150,0,50), [x, y, self.width, self.height])
-        #self.phrase.render(screen)
-        self.phrase.render(self.textSurface)
+        if self.active:
+            screen.blit(self.textSurface, self.position.toTuple())
+            #x, y = self.position.toTuple()
+            #pygame.draw.rect(screen, (150,0,50), [x, y, self.width, self.height])
+            #self.phrase.render(screen)
+            self.phrase.render(self.textSurface)
