@@ -1,6 +1,7 @@
 import pygame
 from vectors import Vector2D
 from phrase import PhraseHandler
+from base import Text
 
 class TextBox(object):
     def __init__(self, lines, charPerLine):
@@ -13,11 +14,22 @@ class TextBox(object):
         self.charsize = (0, 0)
         self.iphrase = 0
         self.textSurface = None
-        self.active = True
+        self.active = False
+        self.font = None
+        
+    def reset(self):
+        self.phrase = None
+        self.iphrase = 0
+        self.textSurface = None
+        self.active = False
         
     def update(self, dt):
-        self.phrase.update(dt)
-    
+        if self.phrase:
+            self.phrase.update(dt)
+
+    def setFont(self, image, txtfile, size):
+        self.font = Text(image, txtfile, size)
+        
     def createSurface(self):
         self.textSurface = pygame.surface.Surface((self.width, self.height))
         self.textSurface.fill((200,0,20))
@@ -35,11 +47,12 @@ class TextBox(object):
         #    for letter in self.phrase.phraseList:
         #        letter.position += dp
         
-    def setPhrase(self, phrase, table, scale):
+    def setPhrase(self, phrase, scale):
         '''The input phrase is a string. table is the dictionary'''
         #self.phraseStr = phrase
+        #self.reset()
         self.phrase = PhraseHandler(phrase)
-        self.phrase.mapPhrase(table) #self.phrase.phraseList
+        self.phrase.mapPhrase(self.font.textDict) #self.phrase.phraseList
         self.charsize = self.phrase.phraseList[0].size
         self.setDimensions()
         self.scaleCharacters(scale)
@@ -97,22 +110,31 @@ class TextBox(object):
                 self.phrase.phraseList = self.phrase.phraseArray[self.iphrase]
                 self.phrase.continueReadout()
         else:
-            self.active = False
+            if self.phrase.finishedReadout():
+                self.reset()
             
-    def readoutCharacters(self, speed):
+    def readoutCharacters(self, phrase, speed, scale):
         '''Need to just call this once for each phraseset'''
-        self.phrase.readoutCharacters(speed)
+        if not self.phrase and phrase:
+            self.setPhrase(phrase, scale)
+            
+        if self.phrase:
+            if self.active:
+                self.nextPhrase()
+            else:
+                self.active = True
+                self.phrase.readoutCharacters(speed)
 
     def increaseSpeed(self):
-        self.phrase.increaseSpeed()
+        if self.phrase:
+            self.phrase.increaseSpeed()
 
     def resetSpeed(self):
-        self.phrase.resetSpeed()
-        
+        if self.phrase:
+            self.phrase.resetSpeed()
+
+    
     def render(self, screen):
         if self.active:
             screen.blit(self.textSurface, self.position.toTuple())
-            #x, y = self.position.toTuple()
-            #pygame.draw.rect(screen, (150,0,50), [x, y, self.width, self.height])
-            #self.phrase.render(screen)
             self.phrase.render(self.textSurface)
